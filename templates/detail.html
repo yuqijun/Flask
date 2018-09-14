@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Detail
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/detail.css')}}">
+{% endblock %}
+
+
+{% block main %}
+
+<h3 class="detail-caption">
+    {{question.caption}}
+</h3>
+<span class="user_data">
+    {{question.author.username}}
+</span>
+<span>
+    {{question.create_time}}
+</span>
+
+
+<hr>
+
+
+<div class="page-content">
+    <p class="page-content">
+        {{question.content}}
+    </p>
+</div>
+
+
+    <hr>
+
+
+<h4  class="pinglun">
+    评论 [ 0 ]
+</h4>
+
+
+<form action="{{url_for('add_answer')}}"  method="POST" >
+
+    <dvi class="form-group">
+        <input class="form-control" type="text" name="answer-content" placeholder="请输入您的评论">
+        <input type="hidden" name="question_id" value="{{question.message_id}}">
+    </dvi>
+
+    <div class="form-group"  style="text-align:right">
+        <div>
+        <button class="btn btn-primary">
+            立即评论
+        </button>
+        </div>
+    </div>
+
+</form>
+
+
+<ul>
+
+        {% for answer in question.answere %}
+    <li class="pinglun-content">{{answer.user.username}}： {{answer.content}}</li>
+        {% endfor %}
+
+</ul>
+{% endblock %}
